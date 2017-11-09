@@ -81,7 +81,7 @@ func PgParseType(args *internal.ArgType, dt string, nullable bool) (int, string,
 			typ = "sql.NullBool"
 		}
 
-	case "character", "character varying", "text", "money", "inet":
+	case "character", "character varying", "text", "money", "inet", "uuid":
 		nilVal = `""`
 		typ = "string"
 		if nullable {
@@ -180,10 +180,6 @@ func PgParseType(args *internal.ArgType, dt string, nullable bool) (int, string,
 
 	case "hstore":
 		typ = "hstore.Hstore"
-
-	case "uuid":
-		nilVal = "uuid.New()"
-		typ = "uuid.UUID"
 
 	default:
 		if strings.HasPrefix(dt, args.Schema+".") {
